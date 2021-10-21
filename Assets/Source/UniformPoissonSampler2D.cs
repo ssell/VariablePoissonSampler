@@ -88,9 +88,6 @@ namespace VertexFragment
         // Methods
         // ---------------------------------------------------------------------------------
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="rng">The RNG used to generate the random points.</param>
         /// <param name="sampleRadius">The minimum distance between points.</param>
         /// <param name="width">The width of the sampler domain. The maximum x value of a sampled position will be this.</param>
@@ -105,6 +102,11 @@ namespace VertexFragment
             RejectionLimit = rejectionLimit;
         }
 
+        /// <summary>
+        /// Fills the sample domain with blue noise distributed points.
+        /// Once generation is complete the results can be obtained from <see cref="SamplesList"/>.
+        /// </summary>
+        /// <returns></returns>
         public bool Generate()
         {
             if (IsGenerating)
@@ -141,9 +143,13 @@ namespace VertexFragment
                 }
             }
 
-            return SignalStopGenerating(true);
+            IsGenerating = false;
+            return true;
         }
 
+        /// <summary>
+        /// Initializes the sampler for a new run.
+        /// </summary>
         private void Initialize()
         {
             IsGenerating = true;
@@ -160,6 +166,9 @@ namespace VertexFragment
             CollectionUtils.Fill(SpatialLookUp, -1, totalCells);
         }
 
+        /// <summary>
+        /// Generates the first random point in the sample domain and adds it to our collections.
+        /// </summary>
         private void GenerateFirstPoint()
         {
             Vector2 sample = new Vector2(
@@ -169,6 +178,10 @@ namespace VertexFragment
             AddSample(ref sample);
         }
 
+        /// <summary>
+        /// Adds the new sample to the samples list, active list, and spatial grid.
+        /// </summary>
+        /// <param name="sample"></param>
         private void AddSample(ref Vector2 sample)
         {
             int sampleIndex = SamplesList.Count;
@@ -179,6 +192,12 @@ namespace VertexFragment
             SpatialLookUp[spatialIndex] = sampleIndex;
         }
 
+        /// <summary>
+        /// Calculates the index into the spatial grid for the given point.
+        /// Does not perform bounds checking.
+        /// </summary>
+        /// <param name="sample"></param>
+        /// <returns></returns>
         private int GetSpatialGridIndex(ref Vector2 sample)
         {
             int dx = (int)(sample.x / CellLength);
@@ -187,11 +206,20 @@ namespace VertexFragment
             return (dx + (dy * CellsPerX));
         }
 
+        /// <summary>
+        /// Retrieves a random index from the active list.
+        /// </summary>
+        /// <returns></returns>
         private int GetRandomActiveListIndex()
         {
             return Rng.Next(ActiveList.Count);
         }
 
+        /// <summary>
+        /// Generate a new random point in the annulus around the provided point.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
         private Vector2 GenerateRandomPointInAnnulus(ref Vector2 point)
         {
             float min = Radius;
@@ -205,11 +233,21 @@ namespace VertexFragment
                 point.y + ((float)Math.Sin(angle) * distance));
         }
 
+        /// <summary>
+        /// Is the point within bounds of the sample domain?
+        /// </summary>
+        /// <param name="sample"></param>
+        /// <returns></returns>
         private bool IsSampleOutOfBounds(ref Vector2 sample)
         {
             return (sample.x < 0.0f) || (sample.x > Width) || (sample.y < 0.0f) || (sample.y > Height);
         }
 
+        /// <summary>
+        /// Checks if the sample is near any others by checking neighboring cells.
+        /// </summary>
+        /// <param name="sample"></param>
+        /// <returns></returns>
         private bool IsSampleNearOthers(ref Vector2 sample)
         {
             int prospectiveCell = GetSpatialGridIndex(ref sample);
@@ -235,6 +273,12 @@ namespace VertexFragment
             return false;
         }
 
+        /// <summary>
+        /// Checks if the provided sample is near any others in the specified cell.
+        /// </summary>
+        /// <param name="lookupCell"></param>
+        /// <param name="sample"></param>
+        /// <returns></returns>
         private bool IsSampleNearSampleInCell(int lookupCell, ref Vector2 sample)
         {
             if ((lookupCell < 0) || (lookupCell >= SpatialLookUp.Count))
@@ -250,12 +294,6 @@ namespace VertexFragment
             }
 
             return Vector2.Distance(sample, SamplesList[cellSampleIndex]) <= Radius;
-        }
-
-        private bool SignalStopGenerating(bool success)
-        {
-            IsGenerating = false;
-            return success;
         }
     }
 }

@@ -85,7 +85,8 @@ namespace VertexFragment
         }
 
         /// <summary>
-        /// 
+        /// Fills the sample domain with blue noise distributed points.
+        /// Once generation is complete the results can be obtained from <see cref="SamplesList"/>.
         /// </summary>
         /// <param name="minRadius">The minimum minimum distance between points. This is not enforced but used for optimizations.</param>
         /// <param name="maxRadius">The maximum minimum distance between points. This is not enforced but used for optimizations.</param>
@@ -127,9 +128,13 @@ namespace VertexFragment
                 }
             }
 
-            return SignalStopGenerating(true);
+            IsGenerating = false;
+            return true;
         }
 
+        /// <summary>
+        /// Initializes the sampler for a new run.
+        /// </summary>
         private void Initialize(float minRadius, float maxRadius)
         {
             IsGenerating = true;
@@ -139,6 +144,9 @@ namespace VertexFragment
             Samples = new List<Vector2>();
         }
 
+        /// <summary>
+        /// Generates the first random point in the sample domain and adds it to our collections.
+        /// </summary>
         private void GenerateFirstPoint()
         {
             Vector2 sample = new Vector2(
@@ -148,6 +156,10 @@ namespace VertexFragment
             AddSample(ref sample);
         }
 
+        /// <summary>
+        /// Adds the new sample to the samples list and active list.
+        /// </summary>
+        /// <param name="sample"></param>
         private void AddSample(ref Vector2 sample)
         {
             int sampleIndex = Samples.Count;
@@ -156,11 +168,20 @@ namespace VertexFragment
             ActiveList.Add(sampleIndex);
         }
 
+        /// <summary>
+        /// Retrieves a random index from the active list.
+        /// </summary>
+        /// <returns></returns>
         private int GetRandomActiveListIndex()
         {
             return Rng.Next(ActiveList.Count);
         }
 
+        /// <summary>
+        /// Generate a new random point in the annulus around the provided point.
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
         private Vector2 GenerateRandomPointInAnnulus(ref Vector2 point, float radius)
         {
             float min = radius;
@@ -172,12 +193,6 @@ namespace VertexFragment
             return new Vector2(
                 point.x + ((float)Math.Cos(angle) * distance),
                 point.y + ((float)Math.Sin(angle) * distance));
-        }
-
-        private bool SignalStopGenerating(bool success)
-        {
-            IsGenerating = false;
-            return success;
         }
     }
 }

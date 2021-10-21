@@ -43,9 +43,6 @@ namespace VertexFragment
         /// </summary>
         private List<T> GridItems;
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="width"></param>
         /// <param name="height"></param>
         /// <param name="minRadius"></param>
