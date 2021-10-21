@@ -153,14 +153,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee9df1b258535c64b98c0e23cdf10db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 1024
-  Height: 1024
+  Width: 2048
+  Height: 2048
   RejectionLimit: 30
   Seed: 1337
   GenerateRandomComparison: 1
-  DensityMap: {fileID: 0}
-  MinRadius: 10
-  MaxRadius: 50
+  DensityMap: {fileID: 2800000, guid: 3bb8f0e7aa0a7d84c97d9c0790eb2bec, type: 3}
+  MinRadius: 50
+  MaxRadius: 10
 --- !u!4 &1419658570
 Transform:
   m_ObjectHideFlags: 0
