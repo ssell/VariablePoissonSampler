@@ -70,9 +70,6 @@ namespace VertexFragment
         // Methods
         // ---------------------------------------------------------------------------------
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="rng">The RNG used to generate the random points.</param>
         /// <param name="width">The width of the sampler domain. The maximum x value of a sampled position will be this.</param>
         /// <param name="height">The height of the sampler domain. The maximum y value of a sampled position will be this.</param>

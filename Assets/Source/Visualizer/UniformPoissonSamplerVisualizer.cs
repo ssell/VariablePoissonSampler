@@ -17,7 +17,7 @@ namespace VertexFragment
 
             UnityEngine.Debug.Log($"Poisson Generation complete in {sw.Elapsed.TotalMilliseconds} ms");
 
-            SaveToTexture((int)noise.Width, (int)noise.Height, noise.SamplesList, "PoissonDisk");
+            SaveToTexture((int)noise.Width, (int)noise.Height, noise.SamplesList, "UniformPoissonDisk");
 
             if (GenerateRandomComparison)
             {

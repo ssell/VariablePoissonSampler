@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 1419658570}
   - component: {fileID: 1419658571}
   - component: {fileID: 1419658569}
+  - component: {fileID: 1419658572}
   m_Layer: 0
   m_Name: PoissonVisualizer
   m_TagString: Untagged
@@ -157,7 +158,7 @@ MonoBehaviour:
   Height: 2048
   RejectionLimit: 30
   Seed: 1337
-  GenerateRandomComparison: 1
+  GenerateRandomComparison: 0
   DensityMap: {fileID: 2800000, guid: 3bb8f0e7aa0a7d84c97d9c0790eb2bec, type: 3}
   MinRadius: 50
   MaxRadius: 10
@@ -191,5 +192,23 @@ MonoBehaviour:
   Height: 1024
   RejectionLimit: 30
   Seed: 1337
-  GenerateRandomComparison: 1
+  GenerateRandomComparison: 0
+  Radius: 25
+--- !u!114 &1419658572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419658568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e764997421a0994c89600f5abc32245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Width: 1024
+  Height: 1024
+  RejectionLimit: 30
+  Seed: 1337
+  GenerateRandomComparison: 0
   Radius: 25
