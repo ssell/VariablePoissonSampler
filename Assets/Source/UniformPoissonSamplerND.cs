@@ -428,7 +428,7 @@ namespace VertexFragment
 
             for (int i = 0; i < dimensions; ++i)
             {
-                randomUnitVector[i] = (float)rng.NextDouble();
+                randomUnitVector[i] = ((float)rng.NextDouble() * 2.0f) - 1.0f;  // Transform from [0, 1] to [-1, 1]
             }
 
             float vectorMagnitude = 0.0f;
@@ -443,7 +443,6 @@ namespace VertexFragment
             for (int i = 0; i < dimensions; ++i)
             {
                 randomUnitVector[i] /= squaredMagnitude;
-                randomUnitVector[i] *= (rng.Next() % 2 == 0) ? 1.0f : -1.0f;   // Randomly flip the sign.
             }
 
             return randomUnitVector;
