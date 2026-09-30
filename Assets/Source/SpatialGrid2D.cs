@@ -375,7 +375,7 @@ namespace VertexFragment
             {
                 for (int i = 0; i < Contents.Count; ++i)
                 {
-                    if (MathUtils.DistanceSq(x, y, Contents[i].X, Contents[i].Y) < (radius * radius))
+                    if (MathUtils.DistanceSq(x, y, Contents[i].X, Contents[i].Y) < ((Contents[i].Radius + radius) * (Contents[i].Radius + radius)))
                     {
                         return true;
                     }
@@ -397,7 +397,7 @@ namespace VertexFragment
 
                 for (int i = 0; i < Contents.Count; ++i)
                 {
-                    if (MathUtils.DistanceSq(x, y, Contents[i].X, Contents[i].Y) < (radius * radius))
+                    if (MathUtils.DistanceSq(x, y, Contents[i].X, Contents[i].Y) < ((Contents[i].Radius + radius) * (Contents[i].Radius + radius)))
                     {
                         intersections.Add(Contents[i]);
                     }
